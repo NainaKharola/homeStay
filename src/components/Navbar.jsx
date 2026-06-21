@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import logo from '../assets/logo.png'
 
 const links = [
   { label: 'Home', to: '/' }, { label: 'About', to: '/about' },
@@ -7,7 +8,20 @@ const links = [
 ]
 
 function Logo() {
-  return <span className="flex items-center gap-2 text-xl font-bold text-navy-900"><span className="grid size-9 place-items-center rounded-xl bg-forest-600 text-white">⌂</span>Home<span className="text-forest-600">Stay</span></span>
+  return (
+    <div className="flex items-center gap-3">
+      <img
+        src={logo}
+        alt="HomeStay"
+        className="h-10 w-auto object-contain"
+      />
+
+      <span className="text-2xl font-bold tracking-tight">
+        <span className="text-slate-900">Home</span>
+        <span className="ml-2 text-forest-600">Stay</span>
+      </span>
+    </div>
+  )
 }
 
 function Navbar() {

@@ -1,8 +1,8 @@
 {
-  "buildCommand": "cd HomeStay && npm run build",
-  "devCommand": "cd HomeStay && npm run dev",
-  "installCommand": "cd HomeStay && npm install",
-  "outputDirectory": "HomeStay/dist",
+  "buildCommand": "cd homeStay && npm run build",
+  "devCommand": "cd homeStay && npm run dev",
+  "installCommand": "cd homeStay && npm install",
+  "outputDirectory": "homeStay/dist",
   "rewrites": [
     {
       "source": "/(.*)",

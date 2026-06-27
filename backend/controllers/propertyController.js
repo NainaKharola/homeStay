@@ -1,4 +1,5 @@
-const properties = require("../data/properties");
+const mongoose = require("mongoose");
+const Property = require("../models/Property");
 
 const requiredFields = [
   "title",
@@ -28,12 +29,13 @@ const hasInvalidPropertyFields = (body) => {
   return false;
 };
 
-const getNextPropertyId = () =>
-  properties.length === 0 ? 1 : Math.max(...properties.map((property) => property.id)) + 1;
+const isValidPropertyId = (id) => mongoose.Types.ObjectId.isValid(id);
 
 // GET ALL
-const getAllProperties = (req, res, next) => {
+const getAllProperties = async (req, res, next) => {
   try {
+    const properties = await Property.find();
+
     res.status(200).json(properties);
   } catch (error) {
     next(error);
@@ -41,12 +43,15 @@ const getAllProperties = (req, res, next) => {
 };
 
 // GET SINGLE
-const getPropertyById = (req, res, next) => {
+const getPropertyById = async (req, res, next) => {
   try {
-    const id = parseInt(req.params.id, 10);
+    if (!isValidPropertyId(req.params.id)) {
+      return res.status(404).json({
+        message: "Property not found",
+      });
+    }
 
-    const property = properties.find((p) => p.id === id);
-
+    const property = await Property.findById(req.params.id);
     if (!property) {
       return res.status(404).json({
         message: "Property not found",
@@ -60,7 +65,7 @@ const getPropertyById = (req, res, next) => {
 };
 
 // CREATE
-const createProperty = (req, res, next) => {
+const createProperty = async (req, res, next) => {
   try {
     const body = req.body || {};
 
@@ -76,17 +81,14 @@ const createProperty = (req, res, next) => {
       });
     }
 
-    const newProperty = {
-      id: getNextPropertyId(),
+    const newProperty = await Property.create({
       title: body.title.trim(),
       location: body.location.trim(),
       price: Number(body.price),
       rating: Number(body.rating),
       image: body.image.trim(),
       description: body.description.trim(),
-    };
-
-    properties.push(newProperty);
+    });
 
     res.status(201).json(newProperty);
   } catch (error) {
@@ -95,13 +97,17 @@ const createProperty = (req, res, next) => {
 };
 
 // UPDATE
-const updateProperty = (req, res, next) => {
+const updateProperty = async (req, res, next) => {
   try {
     const body = req.body || {};
-    const id = parseInt(req.params.id, 10);
 
-    const property = properties.find((p) => p.id === id);
+    if (!isValidPropertyId(req.params.id)) {
+      return res.status(404).json({
+        message: "Property not found",
+      });
+    }
 
+    const property = await Property.findById(req.params.id);
     if (!property) {
       return res.status(404).json({
         message: "Property not found",
@@ -125,6 +131,8 @@ const updateProperty = (req, res, next) => {
       property[field] = body[field].trim();
     });
 
+    await property.save();
+
     res.status(200).json(property);
   } catch (error) {
     next(error);
@@ -132,19 +140,22 @@ const updateProperty = (req, res, next) => {
 };
 
 // DELETE
-const deleteProperty = (req, res, next) => {
+const deleteProperty = async (req, res, next) => {
   try {
-    const id = parseInt(req.params.id, 10);
-
-    const index = properties.findIndex((p) => p.id === id);
-
-    if (index === -1) {
+    if (!isValidPropertyId(req.params.id)) {
       return res.status(404).json({
         message: "Property not found",
       });
     }
 
-    properties.splice(index, 1);
+    const property = await Property.findById(req.params.id);
+    if (!property) {
+      return res.status(404).json({
+        message: "Property not found",
+      });
+    }
+
+    await property.deleteOne();
 
     res.status(204).send();
   } catch (error) {
@@ -153,15 +164,16 @@ const deleteProperty = (req, res, next) => {
 };
 
 // SEARCH
-const searchProperties = (req, res, next) => {
+const searchProperties = async (req, res, next) => {
   try {
-    const query = req.query.q?.toLowerCase() || "";
+    const query = req.query.q || "";
 
-    const result = properties.filter(
-      (property) =>
-        property.title.toLowerCase().includes(query) ||
-        property.location.toLowerCase().includes(query)
-    );
+    const result = await Property.find({
+      $or: [
+        { title: { $regex: query, $options: "i" } },
+        { location: { $regex: query, $options: "i" } },
+      ],
+    });
 
     res.status(200).json(result);
   } catch (error) {

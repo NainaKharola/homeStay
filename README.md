@@ -1,18 +1,141 @@
-# React + Vite
+# HomeStay
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+HomeStay is a full-stack property rental web application built as part of the **AI-Assisted Full Stack Web Development Internship**. The application allows users to browse rental properties using a React frontend, an Express.js backend, and MongoDB Atlas for data storage.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech Stack
 
-## React Compiler
+### Frontend
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* React
+* Vite
+* Tailwind CSS
+* React Router
 
-## Expanding the ESLint configuration
+### Backend
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* Node.js
+* Express.js
+* MongoDB Atlas
+* Mongoose
 
+---
 
+## Project Structure
+
+```text
+homeStay/
+│
+├── src/                 # React frontend
+├── backend/             # Express backend
+│   ├── config/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── data/
+│   ├── server.js
+│   ├── package.json
+│   └── .env.example
+│
+└── README.md
+```
+
+---
+
+## Frontend Setup
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the frontend:
+
+```bash
+npm run dev
+```
+
+Frontend runs at:
+
+```text
+http://localhost:5173
+```
+
+---
+
+## Backend Setup
+
+Navigate to the backend folder:
+
+```bash
+cd backend
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create a `.env` file:
+
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+```
+
+Start the backend in development mode:
+
+```bash
+npm run dev
+```
+
+Or start it in production mode:
+
+```bash
+npm start
+```
+
+Backend runs at:
+
+```text
+http://localhost:5000
+```
+
+---
+
+## REST API Endpoints
+
+| Method | Endpoint                    | Description          |
+| ------ | --------------------------- | -------------------- |
+| GET    | `/api/properties`           | Get all properties   |
+| GET    | `/api/properties/:id`       | Get a property by ID |
+| POST   | `/api/properties`           | Create a property    |
+| PUT    | `/api/properties/:id`       | Update a property    |
+| DELETE | `/api/properties/:id`       | Delete a property    |
+| GET    | `/api/properties/search?q=` | Search properties    |
+
+---
+
+## Features
+
+* Responsive React frontend
+* Express.js REST API
+* MongoDB Atlas integration
+* Mongoose ODM
+* CRUD operations
+* Property search
+* Error handling middleware
+* CORS configuration
+* Environment variable support
+
+---
+
+## Deployment
+
+* **Frontend:** Vercel
+* **Backend:** Render
+* **Database:** MongoDB Atlas

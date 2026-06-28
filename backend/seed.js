@@ -1,34 +1,29 @@
-const dotenv = require("dotenv");
+require("dotenv").config();
+
 const mongoose = require("mongoose");
+
 const connectDB = require("./config/db");
 const Property = require("./models/Property");
 const properties = require("./data/properties");
 
-dotenv.config();
-
-const seedProperties = async () => {
+const importData = async () => {
   try {
     await connectDB();
 
+    // Delete old data
     await Property.deleteMany();
-    await Property.insertMany(
-      properties.map(({ title, location, price, rating, image, description }) => ({
-        title,
-        location,
-        price,
-        rating,
-        image,
-        description,
-      }))
-    );
 
-    console.log("Properties seeded successfully");
+    // Insert new data
+    await Property.insertMany(properties);
+
+    console.log("Properties inserted successfully!");
+
+    process.exit();
   } catch (error) {
-    console.error(`Seeding failed: ${error.message}`);
-    process.exitCode = 1;
-  } finally {
-    await mongoose.disconnect();
+    console.error(error);
+
+    process.exit(1);
   }
 };
 
-seedProperties();
+importData();

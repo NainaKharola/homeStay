@@ -2,15 +2,18 @@ const mongoose = require("mongoose");
 
 const propertySchema = new mongoose.Schema(
   {
+    id: {
+      type: Number,
+      required: true,
+      unique: true,
+    },
     title: {
       type: String,
       required: true,
-      trim: true,
     },
     location: {
       type: String,
       required: true,
-      trim: true,
     },
     price: {
       type: Number,
@@ -23,23 +26,14 @@ const propertySchema = new mongoose.Schema(
     image: {
       type: String,
       required: true,
-      trim: true,
     },
     description: {
       type: String,
       required: true,
-      trim: true,
     },
   },
   {
-    toJSON: {
-      virtuals: true,
-      transform: (doc, ret) => {
-        delete ret._id;
-        delete ret.__v;
-        return ret;
-      },
-    },
+    timestamps: true,
   }
 );
 

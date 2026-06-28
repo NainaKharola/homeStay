@@ -1,4 +1,4 @@
-const PROPERTIES_API_URL = 'http://localhost:5000/api/properties'
+const PROPERTIES_API_URL ="https://homestay-mni0.onrender.com/api/properties";
 
 export async function getProperties({ signal } = {}) {
   const response = await fetch(PROPERTIES_API_URL, { signal })

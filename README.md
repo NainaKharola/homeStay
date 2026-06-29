@@ -40,6 +40,12 @@ homeStay/
 │   └── DatabaseSchema.png
 │
 ├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── layouts/
+│   ├── pages/
+│   ├── routes/
+│   └── services/
 │
 ├── public/
 │
@@ -66,7 +72,7 @@ homeStay/
 Clone the repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/NainaKharola/homeStay.git
 ```
 
 Move into the project folder
@@ -75,22 +81,15 @@ Move into the project folder
 cd homeStay
 ```
 
+---
+
+# Frontend Setup
+
 Install frontend dependencies
 
 ```bash
 npm install
 ```
-
-Install backend dependencies
-
-```bash
-cd backend
-npm install
-```
-
----
-
-# Frontend Setup
 
 Run the frontend
 
@@ -112,6 +111,19 @@ Navigate to the backend folder
 
 ```bash
 cd backend
+```
+
+Install backend dependencies
+
+```bash
+npm install
+```
+
+Create a `.env` file inside the backend folder
+
+```env
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
 ```
 
 Start the backend
@@ -143,7 +155,7 @@ PORT=5000
 MONGODB_URI=your_mongodb_connection_string
 ```
 
-Never commit your `.env` file to GitHub.
+> **Important:** Never commit your `.env` file or database credentials to GitHub.
 
 ---
 
@@ -151,13 +163,13 @@ Never commit your `.env` file to GitHub.
 
 The HomeStay application uses **MongoDB Atlas** as its cloud-hosted database and **Mongoose** as the ODM (Object Data Modeling) library.
 
-Current Collections
+### Current Collections
 
 - User *(planned)*
 - Property
 - Booking *(planned)*
 
-Database Features
+### Database Features
 
 - Persistent cloud storage
 - MongoDB Atlas integration
@@ -172,13 +184,13 @@ Database Features
 
 The HomeStay application is designed around three primary entities.
 
-## Collections
+### Collections
 
 - User
 - Property
 - Booking
 
-## Relationships
+### Relationships
 
 - One User can own multiple Properties.
 - One User can create multiple Bookings.

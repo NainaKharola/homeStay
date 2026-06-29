@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Property = require("../models/Property");
 
 const requiredFields = [
+  "id",
   "title",
   "location",
   "price",
@@ -82,13 +83,14 @@ const createProperty = async (req, res, next) => {
     }
 
     const newProperty = await Property.create({
-      title: body.title.trim(),
-      location: body.location.trim(),
-      price: Number(body.price),
-      rating: Number(body.rating),
-      image: body.image.trim(),
-      description: body.description.trim(),
-    });
+    id: Number(body.id),
+    title: body.title.trim(),
+    location: body.location.trim(),
+    price: Number(body.price),
+    rating: Number(body.rating),
+    image: body.image.trim(),
+    description: body.description.trim(),
+  });
 
     res.status(201).json(newProperty);
   } catch (error) {

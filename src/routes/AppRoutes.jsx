@@ -5,6 +5,7 @@ import Contact from '../pages/Contact'
 import ComponentDemo from '../pages/ComponentDemo'
 import Home from '../pages/Home'
 import Login from '../pages/Login'
+import PropertyManager from '../pages/PropertyManager'
 import Register from '../pages/Register'
 
 function AppRoutes() {
@@ -16,6 +17,7 @@ function AppRoutes() {
         <Route path="contact" element={<Contact />} />
         <Route path="components-demo" element={<ComponentDemo />} />
         <Route path="login" element={<Login />} />
+        <Route path="manage-properties" element={<PropertyManager />} />
         <Route path="register" element={<Register />} />
       </Route>
     </Routes>

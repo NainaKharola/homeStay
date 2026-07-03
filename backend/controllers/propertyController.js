@@ -17,22 +17,29 @@ const isEmptyText = (value) =>
 const isNumeric = (value) => value !== "" && Number.isFinite(Number(value));
 
 const hasAllRequiredFields = (body) =>
-  requiredFields.every((field) => body[field] !== undefined && body[field] !== null);
+  requiredFields.every(
+    (field) => body[field] !== undefined && body[field] !== null
+  );
 
 const hasInvalidPropertyFields = (body) => {
   if (body.title !== undefined && isEmptyText(body.title)) return true;
   if (body.location !== undefined && isEmptyText(body.location)) return true;
   if (body.image !== undefined && isEmptyText(body.image)) return true;
-  if (body.description !== undefined && isEmptyText(body.description)) return true;
+  if (body.description !== undefined && isEmptyText(body.description))
+    return true;
   if (body.price !== undefined && !isNumeric(body.price)) return true;
   if (body.rating !== undefined && !isNumeric(body.rating)) return true;
+  if (body.id !== undefined && !isNumeric(body.id)) return true;
 
   return false;
 };
 
 const isValidPropertyId = (id) => mongoose.Types.ObjectId.isValid(id);
 
-// GET ALL
+
+
+// ===================== GET ALL =====================
+
 const getAllProperties = async (req, res, next) => {
   try {
     const properties = await Property.find();
@@ -43,7 +50,10 @@ const getAllProperties = async (req, res, next) => {
   }
 };
 
-// GET SINGLE
+
+
+// ===================== GET SINGLE =====================
+
 const getPropertyById = async (req, res, next) => {
   try {
     if (!isValidPropertyId(req.params.id)) {
@@ -53,6 +63,7 @@ const getPropertyById = async (req, res, next) => {
     }
 
     const property = await Property.findById(req.params.id);
+
     if (!property) {
       return res.status(404).json({
         message: "Property not found",
@@ -65,7 +76,10 @@ const getPropertyById = async (req, res, next) => {
   }
 };
 
-// CREATE
+
+
+// ===================== CREATE =====================
+
 const createProperty = async (req, res, next) => {
   try {
     const body = req.body || {};
@@ -83,14 +97,14 @@ const createProperty = async (req, res, next) => {
     }
 
     const newProperty = await Property.create({
-    id: Number(body.id),
-    title: body.title.trim(),
-    location: body.location.trim(),
-    price: Number(body.price),
-    rating: Number(body.rating),
-    image: body.image.trim(),
-    description: body.description.trim(),
-  });
+      id: Number(body.id),
+      title: body.title.trim(),
+      location: body.location.trim(),
+      price: Number(body.price),
+      rating: Number(body.rating),
+      image: body.image.trim(),
+      description: body.description.trim(),
+    });
 
     res.status(201).json(newProperty);
   } catch (error) {
@@ -98,7 +112,10 @@ const createProperty = async (req, res, next) => {
   }
 };
 
-// UPDATE
+
+
+// ===================== UPDATE =====================
+
 const updateProperty = async (req, res, next) => {
   try {
     const body = req.body || {};
@@ -110,6 +127,7 @@ const updateProperty = async (req, res, next) => {
     }
 
     const property = await Property.findById(req.params.id);
+
     if (!property) {
       return res.status(404).json({
         message: "Property not found",
@@ -122,26 +140,42 @@ const updateProperty = async (req, res, next) => {
       });
     }
 
-    const allowedUpdates = requiredFields.filter((field) => field in body);
+    // Update only editable fields
+    if (body.title !== undefined)
+      property.title = body.title.trim();
 
-    allowedUpdates.forEach((field) => {
-      if (field === "price" || field === "rating") {
-        property[field] = Number(body[field]);
-        return;
-      }
+    if (body.location !== undefined)
+      property.location = body.location.trim();
 
-      property[field] = body[field].trim();
-    });
+    if (body.price !== undefined)
+      property.price = Number(body.price);
+
+    if (body.rating !== undefined)
+      property.rating = Number(body.rating);
+
+    if (body.image !== undefined)
+      property.image = body.image.trim();
+
+    if (body.description !== undefined)
+      property.description = body.description.trim();
+
+    // Optional: allow updating custom numeric id
+    if (body.id !== undefined)
+      property.id = Number(body.id);
 
     await property.save();
 
     res.status(200).json(property);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 };
 
-// DELETE
+
+
+// ===================== DELETE =====================
+
 const deleteProperty = async (req, res, next) => {
   try {
     if (!isValidPropertyId(req.params.id)) {
@@ -151,6 +185,7 @@ const deleteProperty = async (req, res, next) => {
     }
 
     const property = await Property.findById(req.params.id);
+
     if (!property) {
       return res.status(404).json({
         message: "Property not found",
@@ -165,15 +200,28 @@ const deleteProperty = async (req, res, next) => {
   }
 };
 
-// SEARCH
+
+
+// ===================== SEARCH =====================
+
 const searchProperties = async (req, res, next) => {
   try {
     const query = req.query.q || "";
 
     const result = await Property.find({
       $or: [
-        { title: { $regex: query, $options: "i" } },
-        { location: { $regex: query, $options: "i" } },
+        {
+          title: {
+            $regex: query,
+            $options: "i",
+          },
+        },
+        {
+          location: {
+            $regex: query,
+            $options: "i",
+          },
+        },
       ],
     });
 

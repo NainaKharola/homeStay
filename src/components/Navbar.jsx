@@ -3,8 +3,11 @@ import { NavLink } from 'react-router-dom'
 import logo from '../assets/logo.png'
 
 const links = [
-  { label: 'Home', to: '/' }, { label: 'About', to: '/about' },
-  { label: 'Contact', to: '/contact' }, { label: 'Login', to: '/login' },
+  { label: 'Home', to: '/' },
+  { label: 'About', to: '/about' },
+  { label: 'Contact', to: '/contact' },
+  { label: 'Manage Property', to: '/manage-properties' },
+  { label: 'Login', to: '/login' },
 ]
 
 function Logo() {

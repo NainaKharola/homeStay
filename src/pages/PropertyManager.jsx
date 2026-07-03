@@ -180,7 +180,6 @@ function PropertyManager() {
     <section className="bg-slate-50 px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8">
-          <p className="font-semibold uppercase tracking-wider text-forest-600">Week 5 CRUD verification</p>
           <h1 className="mt-2 text-3xl font-bold text-navy-900 sm:text-4xl">Property Management</h1>
         </div>
 

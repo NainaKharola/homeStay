@@ -7,6 +7,7 @@ const configurePassport = require("./config/passport");
 const errorHandler = require("./middleware/errorHandler");
 const propertyRoutes = require("./routes/propertyRoutes");
 const authRoutes = require("./routes/authRoutes");
+const aiRoutes = require("./routes/aiRoutes");
 
 dotenv.config();
 
@@ -44,6 +45,9 @@ app.use("/api/auth", authRoutes);
 
 // Register Property Routes
 app.use("/api/properties", propertyRoutes);
+
+// Register AI Routes
+app.use("/api/ai", aiRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).json({

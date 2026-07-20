@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import AIPropertyGenerator from '../components/AIPropertyGenerator'
 import { Button, Input, Loader, Toast } from '../components/ui'
 import { createProperty, deleteProperty, getProperties, updateProperty } from '../services/propertyService'
 
@@ -59,6 +60,17 @@ function PropertyManager() {
 
     setForm((currentForm) => ({ ...currentForm, [name]: value }))
     setFieldErrors((currentErrors) => ({ ...currentErrors, [name]: '' }))
+  }
+
+  function handleUseDescription(generatedDescription) {
+    setForm((currentForm) => ({ ...currentForm, description: generatedDescription }))
+    setFieldErrors((currentErrors) => ({ ...currentErrors, description: '' }))
+    
+    // Scroll smoothly to description form
+    const formElement = document.getElementById('property-form')
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: 'smooth' })
+    }
   }
 
   function validateForm() {
@@ -188,7 +200,12 @@ function PropertyManager() {
           {error && <Toast message={error} onClose={() => setError('')} type="error" />}
         </div>
 
-        <form className="rounded-3xl bg-white p-6 shadow-md sm:p-8" onSubmit={handleSubmit}>
+        {/* AI Generator Section */}
+        <div className="mb-10">
+          <AIPropertyGenerator onUseDescription={handleUseDescription} initialValues={form} />
+        </div>
+
+        <form id="property-form" className="rounded-3xl bg-white p-6 shadow-md sm:p-8" onSubmit={handleSubmit}>
           <div className="grid gap-5 md:grid-cols-2">
             <Input disabled={isSaving} error={fieldErrors.title} label="Title" name="title" onChange={handleChange} value={form.title} />
             <Input disabled={isSaving} error={fieldErrors.location} label="Location" name="location" onChange={handleChange} value={form.location} />

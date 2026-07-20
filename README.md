@@ -200,67 +200,91 @@ The HomeStay application is designed around three primary entities.
 
 ---
 
-# REST API Endpoints
+## AI API Integration
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/properties` | Get all properties |
-| GET | `/api/properties/:id` | Get property by ID |
-| POST | `/api/properties` | Create a property |
-| PUT | `/api/properties/:id` | Update a property |
-| DELETE | `/api/properties/:id` | Delete a property |
-| GET | `/api/properties/search?q=` | Search properties |
+- **Google Gemini API (`gemini-3.5-flash` / `gemini-flash-latest`)**
+- `@google/generative-ai` SDK
 
 ---
 
 # Features
 
-- Responsive React frontend
-- RESTful Express API
-- MongoDB Atlas integration
-- Mongoose ODM
-- Complete CRUD operations
-- Property search functionality
-- Centralized error handling
-- Input validation
-- Environment variable support
-- CORS configuration
-- Persistent database storage
-- Cloud deployment
+- Responsive React frontend with Tailwind CSS
+- JWT Authentication (Email/Password & Google OAuth 2.0)
+- Protected routes & user session state
+- RESTful Express API with MongoDB Atlas persistence
+- **AI Property Description Generator**: Instant, professional real estate descriptions powered by Google Gemini 3.5 Flash
+- Complete Property CRUD operations
+- Centralized error handling & stack trace logging
+- Environment variable security & input sanitization
+- CORS & rate limiting configuration
 
 ---
 
-# Deployment
+# AI Feature: Property Description Generator
 
-## Frontend (Vercel)
+The **AI Property Description Generator** allows property owners to create compelling, high-converting listing descriptions in seconds before publishing a property.
 
-https://home-stay-liard-ten.vercel.app
+### Key Capabilities:
+- Custom input parameters: Title, Location, Price per night, Bedrooms, Bathrooms, Property Type, Amenities, Additional Notes.
+- Uses **Google Gemini 3.5 Flash** (with dynamic fallback) for rapid, natural language generation.
+- Strict prompt formatting ensuring a clean, 120–180 word single paragraph without markdown artifacts.
+- Copy to clipboard & direct one-click application into the Property Manager form.
 
-## Backend (Render)
-
-https://homestay-mni0.onrender.com
-
-## Database
-
-MongoDB Atlas
+### How to Obtain a Google Gemini API Key:
+1. Visit [Google AI Studio](https://aistudio.google.com/).
+2. Sign in with your Google account.
+3. Click **Get API key** -> **Create API key in new project**.
+4. Copy your generated API key.
+5. Add it to your `backend/.env` file:
+   ```env
+   GEMINI_API_KEY=your_actual_gemini_api_key_here
+   ```
 
 ---
 
-# Future Improvements
+# REST API Endpoints
 
-- User Authentication
-- Login & Registration
-- JWT Authentication
-- Password Hashing (bcrypt)
-- User Roles (Guest, Host, Admin)
-- Protected Routes
-- User Dashboard
-- Host Dashboard
-- Booking System
-- Reviews & Ratings
-- Wishlist
-- Payment Integration
-- Admin Dashboard
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| POST | `/api/auth/register` | Public | Register new user |
+| POST | `/api/auth/login` | Public | User login |
+| GET | `/api/auth/google` | Public | Initiate Google OAuth |
+| GET | `/api/auth/google/callback` | Public | Google OAuth callback |
+| GET | `/api/auth/me` | Private | Get authenticated user profile |
+| GET | `/api/properties` | Public | Get all properties |
+| GET | `/api/properties/:id` | Public | Get property by ID |
+| POST | `/api/properties` | Private | Create a property |
+| PUT | `/api/properties/:id` | Private | Update a property |
+| DELETE | `/api/properties/:id` | Private | Delete a property |
+| POST | `/api/ai/property-description` | Private | Generate AI property description |
+
+---
+
+# Environment Variables
+
+Create a `.env` file inside the **backend** folder.
+
+```env
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret_key
+CLIENT_URL=http://localhost:5173
+FRONTEND_URL=https://home-stay-liard-ten.vercel.app
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+CALLBACK_URL=http://localhost:5000/api/auth/google/callback
+GOOGLE_CALLBACK_URL=http://localhost:5000/api/auth/google/callback
+GEMINI_API_KEY=your_google_gemini_api_key
+```
+
+> **Important:** Never commit your `.env` file or API keys to version control. Verified `.env` is ignored in `.gitignore`.
+
+---
+
+# Prompt Engineering Documentation
+
+For full details on the prompt iteration versions (1, 2, and 3), example inputs, example outputs, and prompt design decisions, refer to [PROMPTS.md](PROMPTS.md).
 
 ---
 

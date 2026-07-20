@@ -10,6 +10,7 @@ const {
   deleteProperty,
   searchProperties,
 } = require("../controllers/propertyController");
+const { protect } = require("../middleware/authMiddleware");
 
 // Search
 router.get("/search", searchProperties);
@@ -20,13 +21,13 @@ router.get("/", getAllProperties);
 // Get single
 router.get("/:id", getPropertyById);
 
-// Create
-router.post("/", createProperty);
+// Create (Protected)
+router.post("/", protect, createProperty);
 
-// Update
-router.put("/:id", updateProperty);
+// Update (Protected)
+router.put("/:id", protect, updateProperty);
 
-// Delete
-router.delete("/:id", deleteProperty);
+// Delete (Protected)
+router.delete("/:id", protect, deleteProperty);
 
-module.exports = router;
+module.exports = router;

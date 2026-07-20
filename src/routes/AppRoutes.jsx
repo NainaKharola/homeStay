@@ -7,6 +7,8 @@ import Home from '../pages/Home'
 import Login from '../pages/Login'
 import PropertyManager from '../pages/PropertyManager'
 import Register from '../pages/Register'
+import Profile from '../pages/Profile'
+import ProtectedRoute from '../components/ProtectedRoute'
 
 function AppRoutes() {
   return (
@@ -17,8 +19,13 @@ function AppRoutes() {
         <Route path="contact" element={<Contact />} />
         <Route path="components-demo" element={<ComponentDemo />} />
         <Route path="login" element={<Login />} />
-        <Route path="manage-properties" element={<PropertyManager />} />
         <Route path="register" element={<Register />} />
+        
+        {/* Protected Routes */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="manage-properties" element={<PropertyManager />} />
+          <Route path="profile" element={<Profile />} />
+        </Route>
       </Route>
     </Routes>
   )

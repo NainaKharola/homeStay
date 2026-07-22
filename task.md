@@ -1,0 +1,24 @@
+# Tasks - Week 8: Frontend Integration & Polish
+
+- [x] Backend Updates
+  - [x] Add `owner` reference to Property Schema in `backend/models/Property.js`
+  - [x] Update `createProperty`, `updateProperty`, and `deleteProperty` controllers to support ownership checks in `backend/controllers/propertyController.js`
+- [x] Error Boundary & Global Error UI
+  - [x] Create `ErrorBoundary.jsx` component
+  - [x] Wrap React app in `main.jsx` with `ErrorBoundary`
+- [x] Pages & Routes Configuration
+  - [x] Create dedicated explorer `PropertyListing.jsx` page with search and filters
+  - [x] Create detailed preview `PropertyDetails.jsx` page with booking simulations
+  - [x] Create authenticated `Dashboard.jsx` page with stats, user listings, bookmarks, and timelines
+  - [x] Update routing rules in `AppRoutes.jsx` to map new pages
+- [x] AI Description Generator Upgrade
+  - [x] Polish UI in `AIPropertyGenerator.jsx` (grid inputs, spinner, copy panels, counters, layout)
+- [x] CRUD Flows & Component Integrations
+  - [x] Create custom `EmptyState.jsx` component
+  - [x] Update `PropertyManager.jsx` (form validation, delete confirmation overlay, refresh loops)
+  - [x] Update `Navbar.jsx` with dashboard navigation and mobile responsiveness
+  - [x] Update `HomestayCard.jsx` with save toggle (favorites) and links to details
+- [x] Verification, Optimization, & Refactoring
+  - [x] Remove unused imports, dead logs, and mock data sets
+  - [x] Perform performance check (renders, memoization)
+  - [x] Verify build and run local server tests

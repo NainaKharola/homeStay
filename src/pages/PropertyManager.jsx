@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import AIPropertyGenerator from '../components/AIPropertyGenerator'
-import { Button, Input, Loader, Toast } from '../components/ui'
+import { Button, Input, Loader, Toast, Modal } from '../components/ui'
 import { createProperty, deleteProperty, getProperties, updateProperty } from '../services/propertyService'
 
 const emptyForm = {
@@ -24,6 +24,7 @@ function PropertyManager() {
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [deletingId, setDeletingId] = useState('')
+  const [deleteConfirmProperty, setDeleteConfirmProperty] = useState(null)
 
   const isEditing = Boolean(editingProperty)
 
@@ -134,9 +135,11 @@ function PropertyManager() {
       if (isEditing) {
         await updateProperty(editingProperty._id, payload)
         setMessage({ type: 'success', text: 'Property updated successfully' })
+        logActivity(`Updated property "${payload.title}"`)
       } else {
         await createProperty(payload)
         setMessage({ type: 'success', text: 'Property added successfully' })
+        logActivity(`Created property "${payload.title}"`)
       }
 
       resetForm()
@@ -164,11 +167,11 @@ function PropertyManager() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  async function handleDelete(property) {
-    const confirmed = window.confirm('Are you sure you want to delete this property?')
+  function handleDelete(property) {
+    setDeleteConfirmProperty(property)
+  }
 
-    if (!confirmed) return
-
+  async function executeDelete(property) {
     try {
       setDeletingId(property._id)
       setError('')
@@ -176,6 +179,7 @@ function PropertyManager() {
       setProperties((currentProperties) => currentProperties.filter((item) => item._id !== property._id))
       await deleteProperty(property._id)
       setMessage({ type: 'success', text: 'Property deleted successfully' })
+      logActivity(`Deleted property "${property.title}"`)
 
       if (editingProperty?._id === property._id) {
         resetForm()
@@ -186,6 +190,16 @@ function PropertyManager() {
     } finally {
       setDeletingId('')
     }
+  }
+
+  const logActivity = (description) => {
+    const list = JSON.parse(localStorage.getItem('homestay_activities') || '[]')
+    list.unshift({
+      id: Date.now(),
+      description,
+      timestamp: new Date().toISOString(),
+    })
+    localStorage.setItem('homestay_activities', JSON.stringify(list.slice(0, 15)))
   }
 
   return (
@@ -272,6 +286,33 @@ function PropertyManager() {
             </div>
           )}
         </div>
+        <Modal
+          isOpen={Boolean(deleteConfirmProperty)}
+          onClose={() => setDeleteConfirmProperty(null)}
+          title="Confirm Deletion"
+        >
+          <div className="space-y-4">
+            <p className="text-sm text-slate-500 leading-relaxed">
+              Are you sure you want to delete <strong className="text-navy-900">"{deleteConfirmProperty?.title}"</strong>? This action is permanent and cannot be undone.
+            </p>
+            <div className="flex justify-end gap-3 pt-2">
+              <Button
+                onClick={() => setDeleteConfirmProperty(null)}
+                text="Cancel"
+                variant="secondary"
+              />
+              <Button
+                className="bg-red-600 hover:bg-red-700 text-white"
+                onClick={() => {
+                  const target = deleteConfirmProperty
+                  setDeleteConfirmProperty(null)
+                  executeDelete(target)
+                }}
+                text="Delete Stay"
+              />
+            </div>
+          </div>
+        </Modal>
       </div>
     </section>
   )

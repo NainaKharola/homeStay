@@ -29,16 +29,16 @@ function Navbar() {
 
   const publicLinks = [
     { label: 'Home', to: '/' },
+    { label: 'Explore Stays', to: '/properties' },
     { label: 'About', to: '/about' },
     { label: 'Contact', to: '/contact' },
     { label: 'Login', to: '/login' },
   ]
 
   const authLinks = [
-    { label: 'Home', to: '/' },
-    { label: 'About', to: '/about' },
-    { label: 'Contact', to: '/contact' },
-    { label: 'Manage Property', to: '/manage-properties' },
+    { label: 'Dashboard', to: '/dashboard' },
+    { label: 'Explore Stays', to: '/properties' },
+    { label: 'Manage Stays', to: '/manage-properties' },
     { label: 'Profile', to: '/profile' },
   ]
 

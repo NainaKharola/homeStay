@@ -104,6 +104,7 @@ const createProperty = async (req, res, next) => {
       rating: Number(body.rating),
       image: body.image.trim(),
       description: body.description.trim(),
+      owner: req.user ? req.user._id : null,
     });
 
     res.status(201).json(newProperty);
@@ -131,6 +132,13 @@ const updateProperty = async (req, res, next) => {
     if (!property) {
       return res.status(404).json({
         message: "Property not found",
+      });
+    }
+
+    // Check ownership if owner is set
+    if (property.owner && property.owner.toString() !== req.user._id.toString() && req.user.role !== "admin") {
+      return res.status(403).json({
+        message: "You do not have permission to update this property",
       });
     }
 
@@ -189,6 +197,13 @@ const deleteProperty = async (req, res, next) => {
     if (!property) {
       return res.status(404).json({
         message: "Property not found",
+      });
+    }
+
+    // Check ownership if owner is set
+    if (property.owner && property.owner.toString() !== req.user._id.toString() && req.user.role !== "admin") {
+      return res.status(403).json({
+        message: "You do not have permission to delete this property",
       });
     }
 

@@ -9,6 +9,9 @@ import PropertyManager from '../pages/PropertyManager'
 import Register from '../pages/Register'
 import Profile from '../pages/Profile'
 import ProtectedRoute from '../components/ProtectedRoute'
+import Dashboard from '../pages/Dashboard'
+import PropertyListing from '../pages/PropertyListing'
+import PropertyDetails from '../pages/PropertyDetails'
 
 function AppRoutes() {
   return (
@@ -20,9 +23,12 @@ function AppRoutes() {
         <Route path="components-demo" element={<ComponentDemo />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+        <Route path="properties" element={<PropertyListing />} />
+        <Route path="properties/:id" element={<PropertyDetails />} />
         
         {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="manage-properties" element={<PropertyManager />} />
           <Route path="profile" element={<Profile />} />
         </Route>

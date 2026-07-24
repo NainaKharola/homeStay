@@ -1,9 +1,7 @@
 const { buildPropertyPrompt } = require("../utils/promptBuilder");
 const { generateDescriptionFromGemini } = require("../services/geminiService");
 
-// @desc    Generate AI property description using Gemini API
-// @route   POST /api/ai/property-description
-// @access  Private / Public
+
 const generatePropertyDescription = async (req, res, next) => {
   try {
     const { title, location } = req.body || {};

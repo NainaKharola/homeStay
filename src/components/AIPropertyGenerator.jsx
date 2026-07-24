@@ -102,19 +102,19 @@ function AIPropertyGenerator({ onUseDescription, initialValues }) {
   }
 
   return (
-    <article className="rounded-3xl bg-gradient-to-br from-forest-950 via-forest-900 to-navy-950 p-6 text-white shadow-xl sm:p-8 border border-forest-800/40">
+    <article className="rounded-3xl bg-gradient-to-br from-[#0c2217] via-[#0d1c24] to-[#07111a] p-6 text-white shadow-xl sm:p-8 border border-slate-700/80">
       {/* Header Info */}
-      <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-white/10 pb-5">
+      <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-700/60 pb-5">
         <div>
           <div className="flex items-center gap-2">
-            <span className="inline-block rounded-lg bg-green-400/20 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-green-300 border border-green-500/20">
+            <span className="inline-block rounded-lg bg-green-500/20 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-green-300 border border-green-500/30">
               ✨ Gemini AI Engine Active
             </span>
           </div>
           <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl text-white">
             AI Property Description Builder
           </h2>
-          <p className="mt-1 text-sm text-green-100/70">
+          <p className="mt-1 text-sm text-slate-200 font-medium">
             Feed stay attributes and let AI draft a premium, high-converting copy.
           </p>
         </div>
@@ -123,7 +123,7 @@ function AIPropertyGenerator({ onUseDescription, initialValues }) {
             type="button"
             onClick={handleReset}
             disabled={isLoading}
-            className="rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold text-white transition hover:bg-white/10 disabled:opacity-50 shrink-0"
+            className="rounded-xl border border-slate-400 bg-white/10 px-4 py-2 text-xs font-semibold text-white transition hover:bg-white/20 disabled:opacity-50 shrink-0"
           >
             Clear / Reset Inputs
           </button>
@@ -145,8 +145,8 @@ function AIPropertyGenerator({ onUseDescription, initialValues }) {
       {/* Attributes Form */}
       <form onSubmit={handleGenerate} className="space-y-5">
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-          <label className="block text-sm font-semibold text-green-50">
-            Stay Title <span className="text-red-300">*</span>
+          <label className="block text-sm font-semibold text-white">
+            Stay Title <span className="text-red-400 font-bold">*</span>
             <input
               type="text"
               name="title"
@@ -154,13 +154,13 @@ function AIPropertyGenerator({ onUseDescription, initialValues }) {
               onChange={handleChange}
               placeholder="e.g. Himalayan Woodhouse"
               disabled={isLoading}
-              className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-white/30 outline-none transition focus:border-green-400 focus:bg-white/10 focus:ring-2 focus:ring-green-400/20"
+              className="mt-1.5 w-full rounded-xl border border-slate-400 bg-slate-900/90 px-4 py-2.5 text-sm text-white placeholder-slate-300 outline-none transition focus:border-green-400 focus:bg-slate-950 focus:ring-2 focus:ring-green-400/20"
               required
             />
           </label>
 
-          <label className="block text-sm font-semibold text-green-50">
-            Location <span className="text-red-300">*</span>
+          <label className="block text-sm font-semibold text-white">
+            Location <span className="text-red-400 font-bold">*</span>
             <input
               type="text"
               name="location"
@@ -168,12 +168,12 @@ function AIPropertyGenerator({ onUseDescription, initialValues }) {
               onChange={handleChange}
               placeholder="e.g. Manali, HP"
               disabled={isLoading}
-              className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-white/30 outline-none transition focus:border-green-400 focus:bg-white/10 focus:ring-2 focus:ring-green-400/20"
+              className="mt-1.5 w-full rounded-xl border border-slate-400 bg-slate-900/90 px-4 py-2.5 text-sm text-white placeholder-slate-300 outline-none transition focus:border-green-400 focus:bg-slate-950 focus:ring-2 focus:ring-green-400/20"
               required
             />
           </label>
 
-          <label className="block text-sm font-semibold text-green-50">
+          <label className="block text-sm font-semibold text-white">
             Price per Night (₹)
             <input
               type="number"
@@ -182,11 +182,11 @@ function AIPropertyGenerator({ onUseDescription, initialValues }) {
               onChange={handleChange}
               placeholder="e.g. 3500"
               disabled={isLoading}
-              className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-white/30 outline-none transition focus:border-green-400 focus:bg-white/10 focus:ring-2 focus:ring-green-400/20"
+              className="mt-1.5 w-full rounded-xl border border-slate-400 bg-slate-900/90 px-4 py-2.5 text-sm text-white placeholder-slate-300 outline-none transition focus:border-green-400 focus:bg-slate-950 focus:ring-2 focus:ring-green-400/20"
             />
           </label>
 
-          <label className="block text-sm font-semibold text-green-50">
+          <label className="block text-sm font-semibold text-white">
             Bedrooms Setup
             <input
               type="text"
@@ -195,11 +195,11 @@ function AIPropertyGenerator({ onUseDescription, initialValues }) {
               onChange={handleChange}
               placeholder="e.g. 2 King Bedrooms"
               disabled={isLoading}
-              className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-white/30 outline-none transition focus:border-green-400 focus:bg-white/10 focus:ring-2 focus:ring-green-400/20"
+              className="mt-1.5 w-full rounded-xl border border-slate-400 bg-slate-900/90 px-4 py-2.5 text-sm text-white placeholder-slate-300 outline-none transition focus:border-green-400 focus:bg-slate-950 focus:ring-2 focus:ring-green-400/20"
             />
           </label>
 
-          <label className="block text-sm font-semibold text-green-50">
+          <label className="block text-sm font-semibold text-white">
             Bathrooms Setup
             <input
               type="text"
@@ -208,18 +208,18 @@ function AIPropertyGenerator({ onUseDescription, initialValues }) {
               onChange={handleChange}
               placeholder="e.g. 2 Attached Bathrooms"
               disabled={isLoading}
-              className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-white/30 outline-none transition focus:border-green-400 focus:bg-white/10 focus:ring-2 focus:ring-green-400/20"
+              className="mt-1.5 w-full rounded-xl border border-slate-400 bg-slate-900/90 px-4 py-2.5 text-sm text-white placeholder-slate-300 outline-none transition focus:border-green-400 focus:bg-slate-950 focus:ring-2 focus:ring-green-400/20"
             />
           </label>
 
-          <label className="block text-sm font-semibold text-green-50">
+          <label className="block text-sm font-semibold text-white">
             Property Type
             <select
               name="propertyType"
               value={aiForm.propertyType}
               onChange={handleChange}
               disabled={isLoading}
-              className="mt-1.5 w-full rounded-xl border border-white/10 bg-forest-900 px-4 py-2.5 text-sm text-white outline-none transition focus:border-green-400 focus:ring-2 focus:ring-green-400/20"
+              className="mt-1.5 w-full rounded-xl border border-slate-400 bg-slate-900 px-4 py-2.5 text-sm text-white outline-none transition focus:border-green-400 focus:ring-2 focus:ring-green-400/20"
             >
               <option value="Homestay">Homestay</option>
               <option value="Villa">Villa</option>
@@ -232,7 +232,7 @@ function AIPropertyGenerator({ onUseDescription, initialValues }) {
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
-          <label className="block text-sm font-semibold text-green-50">
+          <label className="block text-sm font-semibold text-white">
             Amenities
             <input
               type="text"
@@ -241,11 +241,11 @@ function AIPropertyGenerator({ onUseDescription, initialValues }) {
               onChange={handleChange}
               placeholder="e.g. Free WiFi, Bonfire, Kitchen access"
               disabled={isLoading}
-              className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-white/30 outline-none transition focus:border-green-400 focus:bg-white/10 focus:ring-2 focus:ring-green-400/20"
+              className="mt-1.5 w-full rounded-xl border border-slate-400 bg-slate-900/90 px-4 py-2.5 text-sm text-white placeholder-slate-300 outline-none transition focus:border-green-400 focus:bg-slate-950 focus:ring-2 focus:ring-green-400/20"
             />
           </label>
 
-          <label className="block text-sm font-semibold text-green-50">
+          <label className="block text-sm font-semibold text-white">
             Additional Attractions / Context
             <input
               type="text"
@@ -254,7 +254,7 @@ function AIPropertyGenerator({ onUseDescription, initialValues }) {
               onChange={handleChange}
               placeholder="e.g. 5 mins walk from lake side, mountain view"
               disabled={isLoading}
-              className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-white/30 outline-none transition focus:border-green-400 focus:bg-white/10 focus:ring-2 focus:ring-green-400/20"
+              className="mt-1.5 w-full rounded-xl border border-slate-400 bg-slate-900/90 px-4 py-2.5 text-sm text-white placeholder-slate-300 outline-none transition focus:border-green-400 focus:bg-slate-950 focus:ring-2 focus:ring-green-400/20"
             />
           </label>
         </div>
@@ -275,7 +275,7 @@ function AIPropertyGenerator({ onUseDescription, initialValues }) {
               <span>✨ Build AI Description</span>
             )}
           </button>
-          <span className="text-xs text-green-200/50 font-medium">
+          <span className="text-xs text-slate-200 font-semibold">
             Inputs: {totalInputChars} characters
           </span>
         </div>
@@ -283,24 +283,24 @@ function AIPropertyGenerator({ onUseDescription, initialValues }) {
 
       {/* Generated Copy Panel */}
       {(generatedDescription || isLoading) && (
-        <div className="mt-8 border-t border-white/10 pt-6 space-y-3">
+        <div className="mt-8 border-t border-slate-700/60 pt-6 space-y-3">
           <div className="flex items-center justify-between">
             <label className="block text-sm font-bold text-white uppercase tracking-wider">
               Generated Copy
             </label>
-            <span className="text-xs text-green-200/50 font-medium">
+            <span className="text-xs text-slate-200 font-semibold">
               Output: {outputCharCount} characters
             </span>
           </div>
 
           {isLoading ? (
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-6 flex flex-col items-center justify-center text-center gap-3 min-h-[140px]">
+            <div className="rounded-2xl border border-slate-400 bg-slate-900/90 p-6 flex flex-col items-center justify-center text-center gap-3 min-h-[140px]">
               <span className="size-8 animate-spin rounded-full border-4 border-green-500 border-t-transparent" />
-              <p className="text-sm font-medium text-slate-300">Gemini is writing a beautiful stay narrative...</p>
+              <p className="text-sm font-semibold text-slate-200">Gemini is writing a beautiful stay narrative...</p>
             </div>
           ) : (
-            <div className="relative rounded-2xl border border-white/10 bg-white/5 p-5 group transition duration-300 hover:border-green-400/20 hover:bg-white/8">
-              <pre className="whitespace-pre-wrap font-sans text-sm text-slate-100 leading-relaxed font-normal">
+            <div className="relative rounded-2xl border border-slate-400 bg-slate-900/90 p-5 group transition duration-300 hover:border-green-400/30 hover:bg-slate-950">
+              <pre className="whitespace-pre-wrap font-sans text-sm text-white leading-relaxed font-semibold">
                 {generatedDescription}
               </pre>
 
@@ -308,7 +308,7 @@ function AIPropertyGenerator({ onUseDescription, initialValues }) {
                 <button
                   type="button"
                   onClick={handleCopy}
-                  className="rounded-xl bg-white/10 px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-white/20 border border-white/15 flex items-center gap-2"
+                  className="rounded-xl bg-white/10 px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-white/20 border border-slate-400 flex items-center gap-2"
                 >
                   <span>{copied ? '✓' : '📋'}</span>
                   {copied ? 'Copied to Clipboard!' : 'Copy to Clipboard'}
